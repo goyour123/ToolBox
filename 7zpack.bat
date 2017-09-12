@@ -9,6 +9,5 @@
 
 for /f "delims=\ tokens=4" %%a in (%folder%) do @set zname=%%a
 
-pushd %folder%
-start cmd.exe /k "%zpath%\7z.exe" a -xr@%ignore% %zname% && move /y %cd%\%zname%.7z %~dp0
-popd
+cd %folder%
+start cmd.exe /c "%zpath%\7z.exe" a -xr@%ignore% %zname% && move /y %cd%\%zname%.7z %~dp0
