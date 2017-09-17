@@ -12,7 +12,13 @@
 
 @del *.7z
 
-@for /f "delims=\ tokens=4" %%a in ("%folder%") do @set zname=%%a
+@REM Extract the last item in folder path
+:lastitemloop
+@for /f "delims=\ tokens=1*" %%a in ("%folder%") do @(
+    @set zname=%%a
+    @set folder=%%b
+    goto lastitemloop
+)
 
 @pushd %folder%
 start cmd.exe /c "%zpath%\7z.exe" a -xr@%ignore% %~dp0%zname%.7z
