@@ -4,7 +4,7 @@
 
 @set zpath="C:\Program Files\7-Zip"
 
-@REM Pass the folder in the same directory of 7zpack.bat to argument 1 
+@REM Check whether the arg1 is an absolute path or not
 @for /f "delims=\ tokens=1" %%a in ("%1") do @(
     if %%a == C: set drive=C:
     if %%a == D: set drive=D:
