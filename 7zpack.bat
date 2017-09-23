@@ -29,6 +29,11 @@
     goto lastitemloop
 )
 
-@pushd %folder%
+@REM Change path to target path
+@%drive%
+@cd %folder%
+
 start cmd.exe /c "%zpath%\7z.exe" a -xr@%ignore% %~dp0%zname%.7z
-@popd
+
+@%~d0
+@cd %~p0
