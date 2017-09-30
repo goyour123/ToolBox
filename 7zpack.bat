@@ -33,7 +33,13 @@
 @%drive%
 @cd %folder%
 
-start cmd.exe /c "%zpath%\7z.exe" a -xr@%ignore% %~dp0%zname%.7z
+@REM Set 2nd parameter to the output folder
+@set dest=%2
+if "%dest%" == "" (
+    @set dest=%~dp0
+)
+
+start cmd.exe /c "%zpath%\7z.exe" a -xr@%ignore% %dest%%zname%.7z
 
 @%~d0
 @cd %~p0
