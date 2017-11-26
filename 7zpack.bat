@@ -17,7 +17,7 @@
     if %%a == E: set drive=E:
     if %%a == F: set drive=F:
     if %%a == G: set drive=G:
-    if %%a == G: set drive=H:
+    if %%a == H: set drive=H:
 )
 
 @set folder=%1
