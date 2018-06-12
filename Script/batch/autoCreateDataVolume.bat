@@ -1,5 +1,5 @@
 @REM =========================================================================================
-@REM                                AutoCreateDataVolume.bat
+@REM                                autoCreateDataVolume.bat
 @REM =========================================================================================
 @REM This batch file would auto-create a volume named DATA with letter D from the volume with 
 @REM letter C, and the letter D volume would consume half-size space of the letter C volume.
@@ -42,7 +42,7 @@ for /f "tokens=2" %%b in ('diskpart /s %~dp0dpSrc.txt^|findstr /c:" RAW "') do (
   set dVolNum=%%b
 )
 
-@REM 
+@REM Format the new volume and assign letter D to it.
 echo select volume %dVolNum% > %~dp0dpSrc.txt
 echo format quick fs=ntfs label="DATA" >> %~dp0dpSrc.txt
 echo assign letter=D >> %~dp0dpSrc.txt
