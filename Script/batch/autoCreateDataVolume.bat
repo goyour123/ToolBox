@@ -10,10 +10,23 @@
 echo list volume > %~dp0dpSrc.txt
 
 @REM Check whether the Data volume exist or not.
-for /f "tokens=3,4" %%c in ('diskpart /s %~dp0dpSrc.txt^|findstr /c:" D "') do (
+for /f "tokens=2-4" %%b in ('diskpart /s %~dp0dpSrc.txt^|findstr /c:" D "') do (
   if /i %%d == DATA (
     goto END
   )
+  
+  @REM The letter D is occupied by other volume.
+  if /i %%c == D (
+    set volRmLtrNum=%%b
+  )
+)
+
+@REM Remove the letter D from the occupied volume. 
+if defined volRmLtrNum (
+  echo select volume %volRmLtrNum% > %~dp0dpSrc.txt
+  echo remove letter=D >> %~dp0dpSrc.txt
+  diskpart /s %~dp0dpSrc.txt
+  echo list volume > %~dp0dpSrc.txt
 )
 
 @REM Get the volume number with letter C.
