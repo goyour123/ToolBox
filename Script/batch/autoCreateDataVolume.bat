@@ -63,5 +63,5 @@ diskpart /s %~dp0dpSrc.txt
 
 :END
 @REM Delete dpSrc.txt after execution.
-del %~dp0dpSrc.txt
+del /q %~dp0dpSrc.txt
 exit /b 0
