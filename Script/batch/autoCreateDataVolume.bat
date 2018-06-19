@@ -60,18 +60,11 @@
   )
   @echo Largest Letter: !lgLtr!
   @echo Letter to Assign: !ltr2Asn!
-
-  @REM Remove the letter D from the occupied volume.
-  @echo Remove the letter D from the occupied volume...
-  echo select volume %volRmLtrNum% > %~dp0dpSrc.txt
-  echo remove letter=D >> %~dp0dpSrc.txt
-  echo assign letter=!ltr2Asn! >> %~dp0dpSrc.txt
-  diskpart /s %~dp0dpSrc.txt
-  echo list volume > %~dp0dpSrc.txt
 )
 
 @REM Get number and size of the volume with letter C.
 @echo Get the volume number with letter C...
+@echo list volume > %~dp0dpSrc.txt
 @for /f "tokens=2-6" %%b in ('diskpart /s %~dp0dpSrc.txt^|findstr /c:" C "') do @(
   if /i %%c == C (
     set cVolNum=%%b
@@ -96,6 +89,15 @@
 @if "%dVolSize%" GTR "%cQuerymax%" (
   @echo Shrinking size for new volume is greater than C volume querymax^^!^^!^^!
   @goto END
+)
+
+@if defined volRmLtrNum (
+  @REM Remove the letter D from the occupied volume.
+  @echo Remove the letter D from the occupied volume...
+  @echo select volume %volRmLtrNum% > %~dp0dpSrc.txt
+  @echo remove letter=D >> %~dp0dpSrc.txt
+  @echo assign letter=!ltr2Asn! >> %~dp0dpSrc.txt
+  diskpart /s %~dp0dpSrc.txt
 )
 
 @REM Rewrite the diskpart script dpSrc.txt again for creating volume.
