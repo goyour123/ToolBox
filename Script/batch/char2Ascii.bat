@@ -1,8 +1,8 @@
 @REM =========================================================================================
 @REM                                      char2Ascii.bat
 @REM =========================================================================================
-@REM   This batch file would take the ARG1 as input character and echo its ASCII code in
-@REM   decimal.
+@REM  This batch file would take the ARG1 as input character and echo its ASCII code in
+@REM  decimal.
 @REM =========================================================================================
 
 @setlocal EnableDelayedExpansion
