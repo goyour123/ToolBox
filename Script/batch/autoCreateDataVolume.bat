@@ -25,6 +25,7 @@
   )
 )
 
+@REM Letter D is occupied by other volume.
 @if defined volRmLtrNum @(
   @REM Collect the letters of volumes.
   @echo Collect the letters of volumes...
@@ -58,7 +59,7 @@
     )
   )
   @echo Largest Letter: !lgLtr!
-  @echo Letter to Assign: !Ltr2Asn!
+  @echo Letter to Assign: !ltr2Asn!
 
   @REM Remove the letter D from the occupied volume.
   @echo Remove the letter D from the occupied volume...
@@ -80,9 +81,22 @@
 @echo C volume number: %cVolNum%
 @echo C volume size: %cVolSize% GB
 
-@REM Use half-size of letter C space.
-@set /a "dVolSize=(%cVolSize%/2)*1000"
-@echo New D volume size to assign: %dVolSize% MB
+@REM Use half-size of letter C space for new volume.
+@set /a "dVolSizeGb=%cVolSize%/2"
+@set /a "dVolSize=dVolSizeGb*1000"
+@echo New D volume size to assign: %dVolSizeGb% GB
+
+@REM Check shrink querymax of volume C.
+@echo select volume %cVolNum% > %~dp0dpSrc.txt
+@echo shrink querymax >> %~dp0dpSrc.txt
+@for /f "tokens=8" %%a in ('diskpart /s %~dp0dpSrc.txt') do @( 
+  set cQuerymax=%%a
+  @echo Volume C Querymax: !cQuerymax! GB
+)
+@if "%dVolSize%" GTR "%cQuerymax%" (
+  @echo Shrinking size for new volume is greater than C volume querymax^^!^^!^^!
+  @goto END
+)
 
 @REM Rewrite the diskpart script dpSrc.txt again for creating volume.
 @echo select volume %cVolNum% > %~dp0dpSrc.txt
