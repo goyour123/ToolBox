@@ -28,16 +28,22 @@ for /f "tokens=1*" %%a in ('bcdedit /enum firmware') do (
   )
 )
 
-REM set getDes=false
-REM for /f "tokens=1*" %%a in ('bcdedit /enum firmware') do (
-REM   if "!getDes!" EQU "true" (
-REM     set des=%%b
-REM     set getDes=false
-REM   )
+@REM Let user to choose which option would boot first
+set /p tgtIdx=Choose which option to boot first by entering a number from 1 to %optIdx%:  
 
-REM   if "%%a" EQU "identifier" (
-REM     set id=%%b
-REM     set getDes=true
-REM   )
-REM )
+set getDes=false
+set /a optIdx=0
+for /f "tokens=1*" %%a in ('bcdedit /enum firmware') do (
+  if "%%a" EQU "identifier" (
+    if "%%b" NEQ "{fwbootmgr}" (
+      set /a optIdx += 1
+      if "!optIdx!" EQU "%tgtIdx%" (
+        set id=%%b
+      )
+    )
+  )
+)
+
+echo The chosen identifier: %id%
+echo.
 pause
