@@ -6,6 +6,7 @@
 
 setlocal EnableDelayedExpansion
 
+@REM List all fwbootmgr options
 echo fwbootmgr
 echo.
 set getDes=false
@@ -31,6 +32,7 @@ for /f "tokens=1*" %%a in ('bcdedit /enum firmware') do (
 @REM Let user to choose which option would boot first
 set /p tgtIdx=Choose which option to boot first by entering a number from 1 to %optIdx%:  
 
+@REM Get id of the chosen option
 set getDes=false
 set /a optIdx=0
 for /f "tokens=1*" %%a in ('bcdedit /enum firmware') do (
@@ -46,4 +48,7 @@ for /f "tokens=1*" %%a in ('bcdedit /enum firmware') do (
 
 echo The chosen identifier: %id%
 echo.
+
+bcdedit /set {fwbootmgr} displayorder %id% /addfirst
+
 pause
