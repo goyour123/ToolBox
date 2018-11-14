@@ -64,7 +64,7 @@ function calculateMmioAddr() {
   const dev = document.getElementsByTagName("select")[1].value;
   const func = document.getElementsByTagName("select")[2].value;
   let resString = (baseAddr + parseInt(bus, 16) * parseInt('100000', 16) + parseInt(dev, 16) * parseInt('8000', 16) + parseInt(func) * parseInt('1000', 16)).toString(16);
-  return "0x" + resString;
+  return resString;
 }
 
 function restoreMmioAddr() {
@@ -89,7 +89,7 @@ function restoreMmioAddr() {
 
 function calculate() {
   let Addr = calculateMmioAddr();
-  document.getElementById("responseField").innerHTML = Addr
+  document.getElementById("iAddr").value = Addr
 };
 
 function restore() {

@@ -42,7 +42,7 @@ table {
 }
 
 .input {
-  width: 80px;
+  width: 85px;
   height: 30px;
   border-radius: 3px;
   border: solid 0.8px #1f233e;
@@ -61,7 +61,7 @@ table {
 }
 
 #select {
-  width: 80px;
+  width: 85px;
   height: 30px;
   text-align: center;
   font-size: 15px;
@@ -88,14 +88,4 @@ button {
 
 .response {
   margin-top: 30px;
-}
-
-#responseField {
-  min-height: 80px;
-  margin-top: 30px;
-  font-family: Source Sans Pro;
-  font-size: 48px;
-  letter-spacing: 26px;
-  text-align: center;
-  color: #ffffff;
 }

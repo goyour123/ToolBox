@@ -13,15 +13,21 @@
       <div>
         <table>
           <tbody>
-            <tr><td id='text'>PCIEXBAR </td><td><input type="text" class="input" id="cal" name="baseaddr" value=""></tr></td>
-            <tr><td id='text'>Bus </td><td><select id="select" name="bus"></select></tr></td>
-            <tr><td id='text'>Dev </td><td><select id="select" name="dev"></select></tr></td>
-            <tr><td id='text'>Function </td><td><select name="func" id="select"></select></tr></td>
+            <tr><td id='text'>PCIEXBAR </td><td><input type="text" class="input" id="cal" name="baseaddr" value=""></td></tr>
+            <tr><td id='text'>Bus </td><td><select id="select" name="bus"></select></td></tr>
+            <tr><td id='text'>Dev </td><td><select id="select" name="dev"></select></td></tr>
+            <tr><td id='text'>Function </td><td><select name="func" id="select"></select></td></tr>
           </tbody>
         </table>
       </div>
       <div class='btn'><button type="button" id="calculate" onclick="calculate()">Calculate</button></div>
-      <div id="responseField"></div>
+      <div class='response'>
+        <table>
+          <tbody>
+            <tr><td id='text'>MMIO Address</td><td><input class="input" id="iAddr"></input></td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div class="container" id='mmio2pci'>
       <h1>PCI MMIO Restorer</h1>
