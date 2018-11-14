@@ -3,12 +3,6 @@ header {
   text-align: center;
 }
 
-main {
-  background-color: #0087de;
-  height: 900px;
-  text-align: center;
-}
-
 h1 {
   height: 30px;
   font-family: Roboto;
@@ -17,23 +11,24 @@ h1 {
   letter-spacing: 0.5px;
   text-align: center;
   color: #1f233e;
-  padding-top: 30px;
-}
-
-.logo {
-  width: 110px;
-  height: 28px;
-  margin-top: 40px;
-  object-fit: contain;
+  padding-top: 200px;
 }
 
 .container {
-  width: 800px;
-  height: 400px;
+  width: 50%;
+  height: 920px;
   margin: auto;
   text-align: left;
-  position: relative;
-  transform: translateY(50%);
+  float: left;
+}
+
+#pci2mmio {
+  background-color: #0087de;
+}
+
+#mmio2pci {
+  background-color: #3bc9bc;
+  float: right;
 }
 
 table {
@@ -46,7 +41,7 @@ table {
   font-size: 18px;
 }
 
-#input {
+.input {
   width: 80px;
   height: 30px;
   border-radius: 3px;
@@ -55,6 +50,14 @@ table {
   font-size: 16px;
   letter-spacing: 0.5px;
   text-align: center;
+  display: inline-block;
+}
+
+#iBus {
+  margin-right: 10px;
+}
+#iDev {
+  margin-right: 10px;
 }
 
 #select {
@@ -66,7 +69,12 @@ table {
   border: solid 0.8px #1f233e;
 }
 
-#calculate {
+.btn {
+  text-align: center;
+  margin-top: 10px;
+}
+
+button {
   width: 200px;
   height: 30px;
   font-family: Source Sans Pro;
@@ -75,14 +83,14 @@ table {
   border-radius: 10px;
   border:none;
   background-color: #E74C3C;
-  text-align: center;
-  transform: translate(150%, 50%);
   color: #ffffff;
 }
 
+.response {
+  margin-top: 30px;
+}
 
 #responseField {
-/*   min-width: 100px; */
   min-height: 80px;
   margin-top: 30px;
   font-family: Source Sans Pro;
