@@ -6,7 +6,7 @@
 	"EfiDebug": {
 		"prefix": "efidebug",
 		"body": [
-			"DEBUG ((EFI_D_INFO, \"%a $0: %x\\n\", __FUNCTION__, ${1:variable}));"
+			"DEBUG ((EFI_D_INFO, \"%a $0: %x\\n\", __FUNCTION__, ${1:Variable}));"
 		],
 		"description": "Insert efidebug message with variable"
 	},
@@ -16,6 +16,22 @@
 			"DEBUG ((EFI_D_INFO, \"%a $0\\n\", __FUNCTION__));"
 		],
 		"description": "Insert efidebug message only"
+	},
+	"EfiDebug_MemMap": {
+		"prefix": "efidebug_memmap",
+		"body": [
+			"{",
+			"  UINT16 Index;",
+			"  DEBUG ((EFI_D_INFO, \"%a $0\\n\", __FUNCTION__));",
+			"  for (Index = 0; Index <= 0xff; Index++) {",
+			"    DEBUG ((EFI_D_INFO, \"%02x \", *((UINT8*)(UINTN)(${1:MemAddr}) + Index)));",
+			"    if (Index % 0x10 == 0xf) {",
+			"      DEBUG ((EFI_D_INFO, \"\\n\"));",
+			"    }",
+			"  }",
+			"}"
+		],
+		"description": "Insert efidebug for memory map"
 	},
 	"Optimize_Off": {
 		"prefix": "op_off",
