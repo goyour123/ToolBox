@@ -1,3 +1,10 @@
+@REM
+@REM getFwPOSTTime.bat - Get firmware POST time under Windows system
+@REM
+@REM Extract FwPOSTTime and POSTTime from HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power
+@REM register under Windows system.
+@REM
+
 @echo off
 start /wait regedit.exe /e %cd%\tmp.txt "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power"
 

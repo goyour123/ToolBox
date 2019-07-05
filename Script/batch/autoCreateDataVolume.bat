@@ -1,10 +1,10 @@
-@REM =========================================================================================
-@REM                                autoCreateDataVolume.bat
-@REM =========================================================================================
+@REM
+@REM autoCreateDataVolume.bat
+@REM
 @REM This batch file would auto-create a volume named DATA with letter D from the volume with 
 @REM letter C, and the letter D volume would consume half-size space of the letter C volume.
 @REM This file is needed to be run as administrator.
-@REM =========================================================================================
+@REM
 
 @setlocal EnableDelayedExpansion
 

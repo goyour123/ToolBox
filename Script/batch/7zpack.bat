@@ -1,11 +1,11 @@
 @REM
-@REM Use 7-Zip to pack a archive without exclude files listed in 7zpack.ini
-@REM ----------------------------------------------------------------------
+@REM 7zpack.bat - Use 7-Zip to pack a archive without exclude files listed in 7zpack.ini
+@REM
 @REM This 7zpack.bat consumes ARG1 as the archive to pack and the ARG1 can 
 @REM use absolute path and relative path to this batch file. ARG2 is an optional
 @REM argument used as output path. If ARG2 was not given, the output archive
 @REM will be placed in the same directory as the batch file.
-@REM ----------------------------------------------------------------------
+@REM
 
 @REM Set 7z.exe location to zpath variable
 @set zpath="C:\Program Files\7-Zip"

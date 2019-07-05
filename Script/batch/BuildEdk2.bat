@@ -1,3 +1,7 @@
+@REM
+@REM BuildEdk2.bat - Setup EDK2 build environment
+@REM
+
 @echo off
 
 set EDK_WORKSPACE=D:\Project\edk2
