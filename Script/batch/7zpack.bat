@@ -26,6 +26,7 @@
 )
 
 @set ignore=%cd%\7zpack.ini
+@set ignoreRcsv=%cd%\7zpackRcsv.ini
 
 @REM Extract the last item in folder path
 @set looppath=%folder%
@@ -46,7 +47,7 @@ if "%dest%" == "" (
     @set dest=%~dp0
 )
 
-start cmd.exe /c "%zpath%\7z.exe" a -xr@%ignore% %dest%%zname%.7z
+start cmd.exe /c "%zpath%\7z.exe" a -xr@%ignore% -x@%ignoreRcsv% %dest%%zname%.7z
 
 @%~d0
 @cd %~p0
