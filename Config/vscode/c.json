@@ -6,15 +6,52 @@
 	"EfiDebug": {
 		"prefix": "efidebug",
 		"body": [
-			"DEBUG ((EFI_D_INFO, \"%x\\n\", ${1:variable}));"
+			"DEBUG ((EFI_D_INFO, \"%a $0: %x\\n\", __FUNCTION__, ${1:Variable}));"
 		],
 		"description": "Insert efidebug message with variable"
 	},
 	"EfiDebug_Msg": {
 		"prefix": "efidebug_msg",
 		"body": [
-			"DEBUG ((EFI_D_INFO, \"$0\\n\"));"
+			"DEBUG ((EFI_D_INFO, \"%a $0\\n\", __FUNCTION__));"
 		],
 		"description": "Insert efidebug message only"
+	},
+	"EfiDebug_MemMap": {
+		"prefix": "efidebug_memmap",
+		"body": [
+			"{",
+			"  UINT16 Index;",
+			"  DEBUG ((EFI_D_INFO, \"%a $0\\n\", __FUNCTION__));",
+			"  for (Index = 0; Index <= 0xff; Index++) {",
+			"    DEBUG ((EFI_D_INFO, \"%02x \", *((UINT8*)(UINTN)(${1:MemAddr}) + Index)));",
+			"    if (Index % 0x10 == 0xf) {",
+			"      DEBUG ((EFI_D_INFO, \"\\n\"));",
+			"    }",
+			"  }",
+			"}"
+		],
+		"description": "Insert efidebug for memory map"
+	},
+	"Optimize_Off": {
+		"prefix": "op_off",
+		"body": [
+			"#pragma optimize(\"\", off)"
+		],
+		"description": "Insert Optimization Off"
+	},
+	"Optimize_On": {
+		"prefix": "op_on",
+		"body": [
+			"#pragma optimize(\"\", on)"
+		],
+		"description": "Insert Optimization On"
+	},
+	"Print": {
+		"prefix": "print",
+		"body": [
+			"Print (L\"$0\\n\");"
+		],
+		"description": "Insert Print function"
 	},
 }

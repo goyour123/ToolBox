@@ -1,6 +1,6 @@
-@REM =========================================================================================
-@REM                                  fwbootmgrChanger
-@REM =========================================================================================
+@REM
+@REM fwbootmgrChanger - List all fwbootmgr options and change the boot order
+@REM
 
 @echo off
 
