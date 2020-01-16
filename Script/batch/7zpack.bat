@@ -47,7 +47,7 @@ if "%dest%" == "" (
     @set dest=%~dp0
 )
 
-start cmd.exe /c "%zpath%\7z.exe" a -xr@%ignore% -x@%ignoreRcsv% %dest%%zname%.7z
+start cmd.exe /c "%zpath%\7z.exe" a -xr@%ignoreRcsv% -x@%ignore% %dest%%zname%.7z
 
 @%~d0
 @cd %~p0
