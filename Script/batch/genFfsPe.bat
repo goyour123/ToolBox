@@ -14,9 +14,15 @@
 @for /f "delims=\ tokens=1*" %%a in ("%mkfpath%") do @(
   @set pename=%%a
   @set mkfpath=%%b
+  @if [%%a] equ [X64] (
+    @set arch=X64
+  )
+  @if [%%a] equ [IA32] (
+    @set arch=IA32
+  )
   @goto LOOPMKFPATH
 )
-@echo %pename%
+@echo IMAGE:%pename% ARCH:%arch%
 
 @rem Get system time for naming
 @for /f "tokens=1,2,3 delims=/" %%a in ("%date:~0,10%") do @(
