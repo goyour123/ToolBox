@@ -19,10 +19,10 @@
 @echo %pename%
 
 @rem Get system time for naming
-@for /f "delims=/ tokens=1,2,3" %%a in ("%date:~0,10%") do @(
+@for /f "tokens=1,2,3 delims=/" %%a in ("%date:~0,10%") do @(
   set subname=%%b%%c
 )
-@for /f "delims=: tokens=1,2,3" %%a in ("%time:~0,8%") do @(
+@for /f "tokens=1,2,3 delims=: " %%a in ("%time:~0,8%") do @(
   set subname=%subname%%%a%%b%%c
 )
 
