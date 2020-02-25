@@ -54,16 +54,18 @@
   @if [%biossize%] gtr [%recvyend%] (
     start /b /wait ..\..\..\BaseTools\Bin\Win32\split.exe -f %romdir%\%biosname%.fd -s %recvyoffset% -p %romdir% -o temp.fd -t temp2.fd
     start /b /wait ..\..\..\BaseTools\Bin\Win32\split.exe -f %romdir%\temp2.fd -s %recvysize% -p %romdir% -o recvyorg.fd -t temp3.fd
-  ) @else (
+  ) else (
     start /b /wait ..\..\..\BaseTools\Bin\Win32\split.exe -f %romdir%\%biosname%.fd -s %recvyoffset% -p %romdir% -o temp.fd -t temp2.fd
   )
-  del /q %romdir%\temp*.fd
+  @del /q %romdir%\temp*.fd
+) else
+  @rem IGNORE
 )
 
 @rem Gernerating the ffs
 @set ffsoutpath=%cd%\BIOS
 @set efipath=%~dp3OUTPUT
-..\..\..\BaseTools\Bin\Win32\GenSec.exe -s EFI_SECTION_PE32 -o %ffsoutpath%\%pename%_%subname%.pe %efipath%\%pename%.efi
+..\..\..\BaseTools\Bin\Win32\GenSec.exe -s EFI_SECTION_PE32 -o %ffsoutpath%\%pename%_%subname%_pe.sct %efipath%\%pename%.efi
 @if %errorlevel% neq 0 (
   @goto ERROR
 ) else (
@@ -75,5 +77,5 @@
 @exit /b
 
 :END
-@echo %ffsoutpath%\%pename%_%subname%.pe
+@echo %ffsoutpath%\%pename%_%subname%_pe.sct
 @exit /b
