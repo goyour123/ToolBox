@@ -1,14 +1,19 @@
+@setlocal enabledelayedexpansion
 
+@rem Set Recovery region offset and size
+@set /a recvyoffset=0x1000000+0x83A000
+@set /a recvysize=0x120000
 
 @rem Check the arguments
 @if /i [%1] == [nmake] (
-  @start /wait cmd.exe /c %1 %2 %3
-  @if %errorlevel% neq 0 (
+  @start /b /wait cmd.exe /c %1 %2 %3
+  @if !errorlevel! neq 0 (
     @goto ERROR
   )
 )
+@echo Build process done
 
-@rem Get the pe file name
+@rem Get the build arch
 @set mkfpath=%~p3
 :LOOPMKFPATH
 @for /f "delims=\ tokens=1*" %%a in ("%mkfpath%") do @(
@@ -22,6 +27,14 @@
   )
   @goto LOOPMKFPATH
 )
+
+@rem Get pe file name
+@for /f "tokens=3" %%a in ('find "MODULE_NAME" %3') do @(
+  @set pename=%%a
+  @goto PEDONE
+)
+:PEDONE
+
 @echo IMAGE:%pename% ARCH:%arch%
 
 @rem Get system time for naming
@@ -32,25 +45,24 @@
   @set subname=%subname%%%a%%b%%c
 )
 
-@rem Extract Recovery region
-@if [%arch%] equ [IA32] (
-  @rem Set Recovery region offset and size
-  @set /a recvyoffset=0x1000000+0x83A000
-  @set /a recvysize=0x120000
+@if [%arch%] == [IA32] (
+  @echo genFfsPe IA32 process
 
   @rem Get the name of rom file
   @set romdir=%cd%\BIOS
   @pushd %romdir%
   @for /f "delims=" %%a in ('dir /b *.fd') do @(
-  	@set biosname=%%~na
-  	@set biossize=%%~za
-  	@goto DONE
+    @set biosname=%%~na
+    @set biossize=%%~za
+    @goto ROMDONE
   )
-  :DONE
+  :ROMDONE
   @popd
+  @echo Rom file name: %biosname%
+  @echo Rom file size: %biossize%
 
   @rem Extract Recovery region
-  @set /a recvyend=(%recvyoffset%+%recvysize%)
+  @set /a recvyend=%recvyoffset%+%recvysize%
   @if [%biossize%] gtr [%recvyend%] (
     start /b /wait ..\..\..\BaseTools\Bin\Win32\split.exe -f %romdir%\%biosname%.fd -s %recvyoffset% -p %romdir% -o temp.fd -t temp2.fd
     start /b /wait ..\..\..\BaseTools\Bin\Win32\split.exe -f %romdir%\temp2.fd -s %recvysize% -p %romdir% -o recvyorg.fd -t temp3.fd
@@ -58,8 +70,8 @@
     start /b /wait ..\..\..\BaseTools\Bin\Win32\split.exe -f %romdir%\%biosname%.fd -s %recvyoffset% -p %romdir% -o temp.fd -t temp2.fd
   )
   @del /q %romdir%\temp*.fd
-) else
-  @rem IGNORE
+) else (
+  @echo genFfsPe X64 process
 )
 
 @rem Gernerating the ffs
