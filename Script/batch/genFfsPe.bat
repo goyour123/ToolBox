@@ -45,21 +45,21 @@
   @set subname=%subname%%%a%%b%%c
 )
 
+@rem Get the name of rom file
+@set romdir=%cd%\BIOS
+@pushd !romdir!
+@for /f "delims=" %%a in ('dir /b *.fd') do @(
+  @set biosname=%%~na
+  @set biossize=%%~za
+  @goto ROMDONE
+)
+:ROMDONE
+@popd
+@echo Rom file name: %biosname%
+@echo Rom file size: %biossize%
+
 @if [%arch%] == [IA32] (
   @echo genFfsPe IA32 process
-
-  @rem Get the name of rom file
-  @set romdir=%cd%\BIOS
-  @pushd %romdir%
-  @for /f "delims=" %%a in ('dir /b *.fd') do @(
-    @set biosname=%%~na
-    @set biossize=%%~za
-    @goto ROMDONE
-  )
-  :ROMDONE
-  @popd
-  @echo Rom file name: %biosname%
-  @echo Rom file size: %biossize%
 
   @rem Extract Recovery region
   @set /a recvyend=%recvyoffset%+%recvysize%
@@ -67,7 +67,7 @@
     start /b /wait ..\..\..\BaseTools\Bin\Win32\split.exe -f %romdir%\%biosname%.fd -s %recvyoffset% -p %romdir% -o temp.fd -t temp2.fd
     start /b /wait ..\..\..\BaseTools\Bin\Win32\split.exe -f %romdir%\temp2.fd -s %recvysize% -p %romdir% -o recvyorg.fd -t temp3.fd
   ) else (
-    start /b /wait ..\..\..\BaseTools\Bin\Win32\split.exe -f %romdir%\%biosname%.fd -s %recvyoffset% -p %romdir% -o temp.fd -t temp2.fd
+    start /b /wait ..\..\..\BaseTools\Bin\Win32\split.exe -f %romdir%\%biosname%.fd -s %recvyoffset% -p %romdir% -o temp.fd -t recvyorg.fd
   )
   @del /q %romdir%\temp*.fd
 ) else (
