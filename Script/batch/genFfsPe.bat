@@ -19,10 +19,10 @@
 @for /f "delims=\ tokens=1*" %%a in ("%mkfpath%") do @(
   @set pename=%%a
   @set mkfpath=%%b
-  @if [%%a] equ [X64] (
+  @if /i [%%a] == [X64] (
     @set arch=X64
   )
-  @if [%%a] equ [IA32] (
+  @if /i [%%a] == [IA32] (
     @set arch=IA32
   )
   @goto LOOPMKFPATH
@@ -58,7 +58,7 @@
 @echo Rom file name: %biosname%
 @echo Rom file size: %biossize%
 
-@if [%arch%] == [IA32] (
+@if /i [%arch%] == [IA32] (
   @echo genFfsPe IA32 process
 
   @rem Extract Recovery region
