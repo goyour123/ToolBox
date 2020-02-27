@@ -46,8 +46,11 @@
       start /b /wait ..\..\..\BaseTools\Bin\Win32\split.exe -f %romdir%\temp1.fd -s %recvysize% -p %romdir% -o temp2.fd -t tempromprt2.fd
       copy /b /y %romdir%\tempromprt1.fd+%romdir%\recvy.fd %romdir%\temprom.fd
       copy /b /y %romdir%\temprom.fd+%romdir%\tempromprt2.fd %romdir%\%biosname%_%subname%.fd
-      @del /q %romdir%\temp*.fd
+    ) else (
+      start /b /wait ..\..\..\BaseTools\Bin\Win32\split.exe -f %romdir%\%biosname%.fd -s %recvyoffset% -p %romdir% -o tempromprt1.fd -t temp1.fd
+      copy /b /y %romdir%\tempromprt1.fd+%romdir%\recvy.fd %romdir%\%biosname%_%subname%.fd
     )
+    @del /q %romdir%\temp*.fd
     goto END
   )
 )
