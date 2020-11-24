@@ -1,24 +1,15 @@
 # 
-# Write 0x44 to cd4/cd5 offset 0x80-0x88
+# Write 0x44 to cd4/cd5 mmio offset 0x80-0x88
 #
-mm cd4 80 -w 1 -io -n
-mm cd5 44 -w 1 -io -n
-mm cd4 81 -w 1 -io -n
-mm cd5 44 -w 1 -io -n
-mm cd4 82 -w 1 -io -n
-mm cd5 44 -w 1 -io -n
-mm cd4 83 -w 1 -io -n
-mm cd5 44 -w 1 -io -n
-mm cd4 84 -w 1 -io -n
-mm cd5 44 -w 1 -io -n
-mm cd4 85 -w 1 -io -n
-mm cd5 44 -w 1 -io -n
-mm cd4 86 -w 1 -io -n
-mm cd5 44 -w 1 -io -n
-mm cd4 87 -w 1 -io -n
-mm cd5 44 -w 1 -io -n
-mm cd4 88 -w 1 -io -n
-mm cd5 44 -w 1 -io -n
+mm 0xfed80580 44 -w 1 -mmio -n
+mm 0xfed80581 44 -w 1 -mmio -n
+mm 0xfed80582 44 -w 1 -mmio -n
+mm 0xfed80583 44 -w 1 -mmio -n
+mm 0xfed80584 44 -w 1 -mmio -n
+mm 0xfed80585 44 -w 1 -mmio -n
+mm 0xfed80586 44 -w 1 -mmio -n
+mm 0xfed80587 44 -w 1 -mmio -n
+mm 0xfed80588 44 -w 1 -mmio -n
 
 stall 1000000
 reset
