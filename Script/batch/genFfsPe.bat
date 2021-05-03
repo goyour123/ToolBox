@@ -56,29 +56,18 @@
 )
 
 :GENPE
-@rem Get the build arch
-@set mkfpath=%~p3
-:LOOPMKFPATH
-@for /f "delims=\ tokens=1*" %%a in ("%mkfpath%") do @(
-  @set pename=%%a
-  @set mkfpath=%%b
-  @if /i [%%a] == [X64] (
-    @set arch=X64
-  )
-  @if /i [%%a] == [IA32] (
-    @set arch=IA32
-  )
-  @goto LOOPMKFPATH
-)
+@rem Get build arch
+@for /f "tokens=3" %%a in ('findstr /c:"ARCH =" %3') do @set arch=%%a
 
 @rem Get pe file name
-@for /f "tokens=3" %%a in ('find "MODULE_NAME" %3') do @(
-  @set pename=%%a
-  @goto PEDONE
-)
-:PEDONE
+@for /f "tokens=3" %%a in ('findstr /c:"MODULE_NAME =" %3') do @set pename=%%a
 
-@echo IMAGE:%pename% ARCH:%arch%
+@rem Get mudule GUID
+@for /f "tokens=3" %%a in ('findstr /c:"MODULE_GUID =" %3') do @set mdlguid=%%a
+
+@echo IMAGE: %pename% 
+@echo ARCH:  %arch%
+@echo GUID:  %mdlguid%
 
 @if /i [%arch%] == [IA32] (
   @echo genFfsPe IA32 process
