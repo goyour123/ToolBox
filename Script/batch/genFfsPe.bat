@@ -1,5 +1,10 @@
 @setlocal enabledelayedexpansion
 
+@rem Set UEFIReplace tool path
+@set uefireplace_path=%~dp0
+@rem Set GenSec tool path
+@set gensec_path=..\..\..\BaseTools\Bin\Win32
+
 @rem Set Recovery region offset and size
 @set /a recvyoffset=0x1000000+0x83A000
 @set /a recvysize=0x120000
@@ -65,7 +70,7 @@
 @rem Get mudule GUID
 @for /f "tokens=3" %%a in ('findstr /c:"MODULE_GUID =" %3') do @set mdlguid=%%a
 
-@echo IMAGE: %pename% 
+@echo IMAGE: %pename%
 @echo ARCH:  %arch%
 @echo GUID:  %mdlguid%
 
@@ -86,11 +91,12 @@
 
 @rem Gernerating the ffs
 @set efipath=%~dp3OUTPUT
-..\..\..\BaseTools\Bin\Win32\GenSec.exe -s EFI_SECTION_PE32 -o %romdir%\%pename%_%subname%_pe.sct %efipath%\%pename%.efi
+%gensec_path%\GenSec.exe -s EFI_SECTION_PE32 -o %romdir%\%pename%_%subname%_pe.sct %efipath%\%pename%.efi
 @if %errorlevel% neq 0 (
   @goto ERROR
 ) else (
   @echo %romdir%\%pename%_%subname%_pe.sct
+  %uefireplace_path%\UEFIReplace.exe %romdir%\%biosname%.fd %mdlguid% 10 %efipath%\%pename%.efi -o %romdir%\%biosname%_%subname%.fd
   @goto END
 )
 
