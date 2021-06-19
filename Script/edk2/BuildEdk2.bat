@@ -24,9 +24,14 @@ cd %EDK_WORKSPACE%\%EDK_REPO%\
 @REM Build EmulatorPkg setting
 set EMU_TOOL_CHAIN=VS2019
 set EMU_ARCH=X64
-set EMU_TARGET=DEBUG
+set EMU_TARGET=RELEASE
+
+@REM Gen 123IVPkg.bat
+echo build -p 123IVPkg\123IVPkg.dsc -t %EMU_TOOL_CHAIN% -a %EMU_ARCH% -b %EMU_TARGET% > %cd%\Build123IVPkg.bat
+
 @REM Gen BuildEmulator.bat
 echo build -p EmulatorPkg\EmulatorPkg.dsc -t %EMU_TOOL_CHAIN% -a %EMU_ARCH% -b %EMU_TARGET% > %cd%\BuildEmulator.bat
+
 @REM Gen BuildOvmf.bat
 echo build -p OvmfPkg\OvmfPkgX64.dsc -t %EMU_TOOL_CHAIN% -a %EMU_ARCH% -b %EMU_TARGET% > %cd%\BuildOvmf.bat
 
@@ -34,10 +39,13 @@ echo build -p OvmfPkg\OvmfPkgX64.dsc -t %EMU_TOOL_CHAIN% -a %EMU_ARCH% -b %EMU_T
 echo pushd %cd%\Build\Emulator%EMU_ARCH%\%EMU_TARGET%_%EMU_TOOL_CHAIN%\%EMU_ARCH% > %cd%\RunEmulator.bat
 echo %cd%\Build\Emulator%EMU_ARCH%\%EMU_TARGET%_%EMU_TOOL_CHAIN%\%EMU_ARCH%\WinHost.exe >> %cd%\RunEmulator.bat
 echo popd >> %cd%\RunEmulator.bat
+
 @REM Gen RunOvmf.bat
-echo pushd %QEMU_HOME% > %cd%\RunOvmf.bat
+@set RUN_OVMF_SCRIPT=%cd%\RunOvmf.bat
+echo @set OVMF_BIOS=%EDK_WORKSPACE%\%EDK_REPO%\Build\Ovmf%EMU_ARCH%\%EMU_TARGET%_%EMU_TOOL_CHAIN%\FV\OVMF.fd > %RUN_OVMF_SCRIPT%
+echo pushd %QEMU_HOME% >> %cd%\RunOvmf.bat
 echo %QEMU_DRIVE% >> %cd%\RunOvmf.bat
-echo start qemu-system-x86_64.exe -bios %EDK_WORKSPACE%\%EDK_REPO%\Build\Ovmf%EMU_ARCH%\%EMU_TARGET%_%EMU_TOOL_CHAIN%\FV\OVMF.fd >> %cd%\RunOvmf.bat
+echo start qemu-system-x86_64.exe -bios %%OVMF_BIOS%% >> %cd%\RunOvmf.bat
 echo popd >> %cd%\RunOvmf.bat
 echo %EDK_DRIVE% >> %cd%\RunOvmf.bat
 
