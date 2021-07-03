@@ -42,10 +42,11 @@ echo popd >> %cd%\RunEmulator.bat
 
 @REM Gen RunOvmf.bat
 @set RUN_OVMF_SCRIPT=%cd%\RunOvmf.bat
+@set DRIVE_LETTER=G
 echo @set OVMF_BIOS=%EDK_WORKSPACE%\%EDK_REPO%\Build\Ovmf%EMU_ARCH%\%EMU_TARGET%_%EMU_TOOL_CHAIN%\FV\OVMF.fd > %RUN_OVMF_SCRIPT%
 echo pushd %QEMU_HOME% >> %cd%\RunOvmf.bat
 echo %QEMU_DRIVE% >> %cd%\RunOvmf.bat
-echo start qemu-system-x86_64.exe -bios %%OVMF_BIOS%% >> %cd%\RunOvmf.bat
+echo qemu-system-x86_64.exe \\.\%DRIVE_LETTER%: -bios %%OVMF_BIOS%% >> %cd%\RunOvmf.bat
 echo popd >> %cd%\RunOvmf.bat
 echo %EDK_DRIVE% >> %cd%\RunOvmf.bat
 
